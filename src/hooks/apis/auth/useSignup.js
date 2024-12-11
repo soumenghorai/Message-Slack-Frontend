@@ -7,7 +7,7 @@ export const useSignup = () => {
     isPending,
     isSuccess,
     error,
-    mutate: signupMutation,
+    mutateAsync: signupMutation,
   } = useMutation({
     mutationFn: SignUpRequest,
     onSuccess: (data) => {
