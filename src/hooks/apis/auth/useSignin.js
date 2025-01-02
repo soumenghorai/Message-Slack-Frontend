@@ -2,9 +2,11 @@ import { useMutation } from "@tanstack/react-query";
 
 import { SignInRequest } from "@/api/auth";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks/context/useAuth";
 
 export const useSignin = () => {
   const { toast } = useToast();
+  const { setAuth } = useAuth();
   const {
     isPending,
     isSuccess,
@@ -18,6 +20,12 @@ export const useSignin = () => {
       const userObject = JSON.stringify(response.data);
       localStorage.setItem("user", userObject);
       localStorage.setItem("token", response.data.token);
+
+      setAuth({
+        token: response.data.token,
+        user: response.data,
+        loading: false,
+      });
 
       toast({
         title: "Signed up successfully",
